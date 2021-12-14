@@ -91,4 +91,71 @@ class UserApiController extends Controller
             return response()->json(['message' => $message], 201);
         }
     }
+
+    public function updateUserDetails(Request $request, $id)
+    {
+        if ($request->isMethod('put')) {
+            $data = $request->all();
+
+            $rules = [
+                'name' => 'required',
+                'password' => 'required',
+
+            ];
+
+            $customMessage = [
+                'name.required' => 'Name is required',
+                'password.required' => 'Password is required',
+            ];
+
+            $validator = Validator::make($data, $rules, $customMessage);
+
+            if ($validator->fails()) {
+                return response()->json($validator->errors(), 422);
+            }
+
+            $user = User::findOrFail($id);
+            $user->name = $data['name'];
+            $user->password = bcrypt($data['password']);
+            $user->save();
+            $message = 'User Details updated Successfully';
+            return response()->json(['message' => $message], 202);
+        }
+    }
+
+    //Pacth api for update single record
+    public function updateSingleRecord(Request $request, $id)
+    {
+        if ($request->isMethod('patch')) {
+            $data = $request->all();
+
+            $rules = [
+                'name' => 'required',
+            ];
+
+            $customMessage = [
+                'name.required' => 'Name is required',
+
+            ];
+
+            $validator = Validator::make($data, $rules, $customMessage);
+
+            if ($validator->fails()) {
+                return response()->json($validator->errors(), 422);
+            }
+
+            $user = User::findOrFail($id);
+            $user->name = $data['name'];
+            $user->save();
+            $message = 'User Single Record updated Successfully';
+            return response()->json(['message' => $message], 202);
+        }
+    }
+
+    public function deleteSingleUser($id)
+    {
+        User::findOrFail($id)->delete();
+        $message = 'Single User  Deleted Successfully';
+        return response()->json(['message' => $message], 200);
+    }
 }
