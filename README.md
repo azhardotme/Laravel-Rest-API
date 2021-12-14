@@ -4,33 +4,39 @@ Laravel 8 Rest API with CRUD operation.
 
 ### Used Secure API JWT
 
-## Install & Configure Passport
+### Install & Configure Passport
 
-1.Install Passport
-composer require laravel/passport
+#### 1. Install Passport
 
-If time out error comes then run the bellow command
-COMPOSER_MEMORY_LIMIT=-1 composer require laravel/passport
+-   composer require laravel/passport
 
-2. Migration
-   php artisan migrate
+#### If time out error comes then run the bellow command
 
-3.Key Generate
-php artisan passport:install
+-   COMPOSER_MEMORY_LIMIT=-1 composer require laravel/passport
 
-4.User Model
-use Laravel\Passport\HasApiTokens;
-use HasApiTokens, HasFactory, Notifiable;
+#### 2. Migration
 
-5. Update App\Providers\AuthServiceProvider
-   use Laravel\Passport\Passport;
+-   php artisan migrate
 
-In boot function add  
-Passport::routes();
+#### 3. Key Generate
 
-6. Update config/auth.php
-   follow video
-7. create route and function in controller
+-   php artisan passport:install
+
+#### 4. User Model
+
+-   use Laravel\Passport\HasApiTokens;
+-   use HasApiTokens, HasFactory, Notifiable;
+
+#### 5. Update App\Providers\AuthServiceProvider
+
+-   use Laravel\Passport\Passport;
+
+-   In boot function add
+-   Passport::routes();
+
+#### 6. Update config/auth.php
+
+#### 7. create route and function in controller
 
 ## License
 
