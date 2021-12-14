@@ -48,3 +48,5 @@ Route::delete('/delete-multiple-user-with-json', [UserApiController::class, 'del
 
 
 Route::post('/register-api-using-passport', [UserApiController::class, 'registerUserUsingPassport']);
+
+Route::post('/login-api-using-passport', [UserApiController::class, 'loginUserUsingPassport']);
