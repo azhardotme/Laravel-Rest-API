@@ -152,10 +152,45 @@ class UserApiController extends Controller
         }
     }
 
+    //Delete user user with id
     public function deleteSingleUser($id)
     {
         User::findOrFail($id)->delete();
         $message = 'Single User  Deleted Successfully';
         return response()->json(['message' => $message], 200);
+    }
+
+    //Delete user with json
+    public function deleteUserJson(Request $request)
+    {
+        if ($request->isMethod('delete')) {
+            $data = $request->all();
+            User::where('id', $data['id'])->delete();
+            $message = 'User  Deleted Successfully';
+            return response()->json(['message' => $message], 200);
+        }
+    }
+
+    //Delete multiple user
+    public function deleteMultipleUser($ids)
+    {
+        $ids = explode(',', $ids);
+        User::whereIn('id', $ids)->delete();
+
+        $message = 'User  Deleted Successfully';
+        return response()->json(['message' => $message], 200);
+    }
+
+
+    //Delete multiple user with json
+    public function deleteMultipleUserJson(Request $request)
+    {
+        if ($request->isMethod('delete')) {
+            $data = $request->all();
+            User::whereIn('id', $data['ids'])->delete();
+
+            $message = 'User  Deleted Successfully';
+            return response()->json(['message' => $message], 200);
+        }
     }
 }
