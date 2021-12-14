@@ -36,6 +36,11 @@ Laravel 8 Rest API with CRUD operation.
 
 #### 6. Update config/auth.php
 
+       'api' => [
+            'driver' => 'passport',
+            'provider' => 'users',
+        ],
+
 #### 7. create route and function in controller
 
 ## License
