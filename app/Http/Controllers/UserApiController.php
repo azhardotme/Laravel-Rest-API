@@ -185,12 +185,23 @@ class UserApiController extends Controller
     //Delete multiple user with json
     public function deleteMultipleUserJson(Request $request)
     {
-        if ($request->isMethod('delete')) {
-            $data = $request->all();
-            User::whereIn('id', $data['ids'])->delete();
+        $header = $request->header('Athorization');
+        if ($header == '') {
+            $message = 'Authorization is required';
+            return response()->json(['message' => $message], 422);
+        } else {
+            if ($header == 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6ImhlbGxvIiwiaWF0IjoxNTE2MjM5MDIyfQ.flFe13lY6f1W8CHv2YFaI-yigJpocH-hAbkc8w7Tjxo') {
+                if ($request->isMethod('delete')) {
+                    $data = $request->all();
+                    User::whereIn('id', $data['ids'])->delete();
+                    $message = 'User  Deleted Successfully';
+                    return response()->json(['message' => $message], 200);
+                }
+            } else {
 
-            $message = 'User  Deleted Successfully';
-            return response()->json(['message' => $message], 200);
+                $message = 'Authorization does not Match';
+                return response()->json(['message' => $message], 422);
+            }
         }
     }
 }
